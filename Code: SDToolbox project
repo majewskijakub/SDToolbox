@@ -1,0 +1,52 @@
+import sys
+import numpy as np
+import cantera as ct
+from SDToolbox import *
+import matplotlib.pyplot as plt
+
+what_do = raw_input("""Default parameters:
+H2_moles = 4
+O2_moles = 2
+Initial_Pressure = 101325 Pa
+Initial_Temperature = 1000 K
+Initial_Shock_Speed = 1000 m/s\n
+If you want to enter own coefficients type 'own'.
+If you want to use default parameters type 'def'.
+""")
+
+while (what_do != 'own' and what_do != 'def'):
+    what_do = raw_input("Type 'own' or 'def'\n")
+    
+if what_do == 'own':
+
+    mole_H = raw_input("Enter number of H2 moles.\n")
+    mole_O = raw_input("Enter number of O2 moles.\n")
+
+#I am using the PostShock_eq mechanism for calculating the equlibrium post-shock state of the H2-O2 mixture
+
+    P1_string = raw_input("Enter initial Pressure [Pa].\n")
+    T1_string = raw_input("Enter initial Temperature [K].\n")
+    U_string = raw_input("Enter Shock Speed [m/s].\n")
+
+    P1 = float(P1_string)
+    T1 = float(T1_string)
+    U = int(U_string)
+    
+else:
+    mole_H = 4.0
+    mole_O = 2.0
+    P1 = 101325.0
+    T1 = 1000.0
+    U = 1000.0
+
+q = 'H2:%s O2:%s' % (mole_H, mole_O)
+mech = 'h2o2.cti'
+
+gas = PostShock_eq(U, P1, T1, q, mech)
+results = open("results.txt", "w")
+
+results.write("Post-shock Pressure = " + str(gas.P))
+results.write("Post-shock Temperature = " + str(gas.T))
+
+print("\nPost-shock state:")
+gas()
