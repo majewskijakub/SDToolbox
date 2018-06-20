@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{SDToolbox project: The post-shock state of a hydrogen-oxygen mixture}
+\author{Jakub Majewski}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+The task was to write a program using the Python language, Cantera environment and an additional SDToolbox package. SDToolbox consists functions used to numerically calculate shock wave and explosion parameters. 
+
+My program was to calculate the post-shock state of an oxygen-hydrogen mixture. Initial parameters of the mixture as well as shock wave speed could be set by the user. I've also defined the default stack of parameters and they could be used in calculation too.
+
+The model used in this case will be described later.
+
+\section{Literature and sources}
+$
+shepherd.caltech.edu/EDL/public/cantera/html/SD_Toolbox/
+$
+\section{Model description}
+
+The model used in this project was very obvious and easy. The mixture was made of hydrogen and oxygen. The number of $H_2$ and $O_2$ moles could be either set by the user or used as default.
+
+Next the parameters of the shock wave were set. They also could be set by the user or used as default.
+
+The program is using the \textit{PostShockEq} function. It calculates a post shock equilibrium state of the mixture. The mechanism used in this case was \textit{h2o2.cti} which was designed for calculating hydrogen-oxygen mixtures. The main difference between the classic \textit{gri30.cti} and \textit{h2o2.cti} mechanisms is that the \textit{h2o2.cti} is designed for operating with much higher temperatures and gives more accurate results in this case (temperatures like 5000 - 6000 K).
+
+\section{Results}
+
+The results were printed to a \textit{.txt} file and can be used in further calculations if necessary. 
+
+I carried out the reaction for the following parameters:
+
+Number of $H_2$ moles: 4
+
+Number of $O_2$ moles: 2
+
+Initial temperature: 1000 K
+
+Initial pressure: 101325 Pa
+
+Shock wave speed: 1000 m/s
+
+Post-shock parameters recorded by the program are as following:
+
+Final temperature: 3009.23 K
+
+Final pressure: 228577 Pa
+
+\section{Summary}
+
+Besides the final pressure and temperature, the program also calculated the chemical composition of products, enthalpy, entropy, energy and a few other parameters but they were not printed to a \textit{results.txt} file.
+
+My program properly calculated the pressure and temperature of the hydrogen-oxygen mixture. It also works properly for very high initial temperatures and shock waves with higher initial speed. The data saved in \textit{results.txt} file can be used for further calculations.
+
+\end{document}
